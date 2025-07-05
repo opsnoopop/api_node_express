@@ -1,0 +1,7 @@
+.DS_Store
+.dockerignore
+Dockerfile
+README.md
+docker-compose.yml
+mysql/
+node_modules/
