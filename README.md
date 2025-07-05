@@ -4,13 +4,13 @@ A simple Node.js API application using Express and MySQL, containerized with Doc
 
 ## Technology Stack
 
-**Node.js Container:**
+**Node.js Container: FROM node:24.3-alpinee**
 - Node.js: 24.3.0
 - Express: 4.21.2
 - MySQL2: 3.14.1
 - Alpine Linux: 3.22.0
 
-**MySQL Container:**
+**MySQL Container: FROM mysql:8.4.5**
 - MySQL: 8.4.5
 
 
@@ -89,6 +89,13 @@ CREATE TABLE testdb.users (
 
 
 ## Stop the Application
+
+### Truncate table users
+```bash
+docker exec -i container_mysql mysql -u'root' -p'password' testdb -e "
+Truncate testdb.users;
+"
+```
 
 ### Delete table users
 ```bash
