@@ -1,12 +1,10 @@
-version: '3.8'
-
 services:
   node:
     build:
       context: ./
       dockerfile: Dockerfile
-    image: node:24_alpine_mysql
-    container_name: node_24_alpine_mysql
+    image: node:24_alpine_custom
+    container_name: container_node_alpine
     ports:
       - "3000:3000"
     depends_on:
@@ -16,7 +14,7 @@ services:
 
   mysql:
     image: mysql:8.4.5
-    container_name: mysql
+    container_name: container_mysql
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: testdb

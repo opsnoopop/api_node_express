@@ -8,7 +8,7 @@ app.use(express.json()); // ต้องเพิ่มก่อนใช้ง�
 
 // สร้าง connection pool
 const pool = mysql.createPool({
-  host: 'mysql',        // ใช้ชื่อ container (docker-compose หรือ bridge network)
+  host: 'container_mysql',        // ใช้ชื่อ container (docker-compose หรือ bridge network)
   user: 'root',
   password: 'password',
   database: 'testdb',
@@ -30,18 +30,18 @@ app.get('/', async (req, res) => {
 app.post('/users', async (req, res) => {
 
   try {
-    const { name, email } = req.body;
+    const { username, email } = req.body;
 
-    if (!name || !email) {
-      return res.status(400).json({ error: 'Name and email are required' });
+    if (!username || !email) {
+      return res.status(400).json({ error: 'username and email are required' });
     }
 
     const [result] = await pool.execute(
-      'INSERT INTO users (name, email) VALUES (?, ?)',
-      [name, email]
+      'INSERT INTO users (username, email) VALUES (?, ?)',
+      [username, email]
     );
 
-    res.status(201).json({ message: 'User created successfully', userId: result.insertId });
+    res.status(201).json({ message: 'User created successfully', user_id: result.insertId });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Database error' });
@@ -49,19 +49,19 @@ app.post('/users', async (req, res) => {
 
 });
 
-app.get('/users/:id', async (req, res) => {
+app.get('/users/:user_id', async (req, res) => {
 
-  const userId = req.params.id;
-  if (userId && !isNaN(Number(userId))) {
+  const intUserId = req.params.user_id;
+  if (intUserId && !isNaN(Number(intUserId))) {
     try {
-      const [rows] = await pool.query('SELECT id, name, email FROM users WHERE id = ?', [userId]);
-      res.status(200).json({ id: rows[0].id, user: rows[0].name, email: rows[0].email });
+      const [rows] = await pool.query('SELECT user_id, username, email FROM users WHERE user_id = ?', [intUserId]); 
+      res.status(200).json({ user_id: rows[0].user_id, username: rows[0].username, email: rows[0].email });
     } catch (err) {
       console.error(err);
       res.status(500).json({ error: 'Database error' });
     }
   } else {
-    res.status(400).json({ error: 'Invalid user ID' });
+    res.status(400).json({ error: 'Invalid user_id' });
   }
 
 });
