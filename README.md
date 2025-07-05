@@ -1,30 +1,52 @@
-# info
-## docker image node
-FROM node:24.3-alpine
-  "node": "24.3.0"
-  "express": "4.21.2"
-  "mysql2": "3.14.1"
-  "alpine": "3.22.0"
+# Node.js API with MySQL
 
-## docker image mysql
-FROM mysql:8.4.5
+A simple Node.js API application using Express and MySQL, containerized with Docker.
 
+## Technology Stack
 
-# e.g. Use Repository
-## Pull Project to Local
+**Node.js Container:**
+- Node.js: 24.3.0
+- Express: 4.21.2
+- MySQL2: 3.14.1
+- Alpine Linux: 3.22.0
+
+**MySQL Container:**
+- MySQL: 8.4.5
+
+## Getting Started
+
+### 1. Clone the Repository
+```bash
 git clone https://github.com/opsnoopop/api_nodejs.git
+```
 
-## Go to Project
+### 2. Navigate to Project Directory
+```bash
 cd api_nodejs
+```
 
-## Start docker container
+### 3. Start the Application
+```bash
 docker compose up -d --build
+```
 
-## Stop docker container
+### 4. Stop the Application
+```bash
 docker compose down
+```
 
-## Get Request URI
-http://localhost:3000/
+## API Endpoints
 
-## Respone json
-{"message":"Hello World from Node"}
+### Health Check
+- **URL:** http://localhost:3000/
+- **Method:** GET
+- **Response:**
+```json
+{
+  "message": "Hello World from Node"
+}
+```
+
+## Development
+
+The application runs on port 3000 and connects to a MySQL database. Both services are orchestrated using Docker Compose for easy development and deployment.
