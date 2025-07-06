@@ -140,3 +140,4 @@ vite.config.ts.timestamp-*
 
 mysql/
 node_modules/
+k6/*.html

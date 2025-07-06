@@ -2,16 +2,22 @@
 
 A simple Node.js API application using Express and MySQL, containerized with Docker.
 
+
 ## Technology Stack
 
-**Node.js Container: FROM node:24.3-alpinee**
+**Node.js Container: FROM node:24.3-alpine**
+- OS Alpine Linux: 3.22.0
 - Node.js: 24.3.0
 - Express: 4.21.2
 - MySQL2: 3.14.1
-- Alpine Linux: 3.22.0
 
 **MySQL Container: FROM mysql:8.4.5**
+- OS Oracle Linux Server: 9.6
 - MySQL: 8.4.5
+
+**grafana/k6 Container: FROM grafana/k6:1.1.0**
+- OS Alpine Linux: 3.22.0
+- grafana/k6: 1.1.0
 
 
 ## Getting Started
@@ -75,7 +81,7 @@ CREATE TABLE testdb.users (
 }
 ```
 
-### Get user
+### Get user by id
 - **URL:** http://localhost:3000/users/1
 - **Method:** GET
 - **Response:**
@@ -85,6 +91,56 @@ CREATE TABLE testdb.users (
   "username":"optest",
   "email":"auttakorn.w@clicknext.com"
 }
+```
+
+
+## Test Performance by grafana/k6
+
+### grafana/k6 test Health Check
+```bash
+docker run \
+--name container_k6 \
+--rm \
+-it \
+--network global_node \
+-v ./k6/:/k6 \
+grafana/k6:1.1.0 \
+run /k6/k6_node_health_check.js
+```
+
+### grafana/k6 test Insert Create user
+```bash
+docker run \
+--name container_k6 \
+--rm \
+-it \
+--network global_node \
+-v ./k6/:/k6 \
+grafana/k6:1.1.0 \
+run /k6/k6_node_create_user.js
+
+```
+
+### grafana/k6 test Select Get user by id
+```bash
+docker run \
+--name container_k6 \
+--rm \
+-it \
+--network global_node \
+-v ./k6/:/k6 \
+grafana/k6:1.1.0 \
+run /k6/k6_node_get_user_by_id.js
+```
+
+### check entrypoint grafana/k6
+```bash
+docker run \
+--name container_k6 \
+--rm \
+-it \
+--entrypoint \
+/bin/sh grafana/k6:1.1.0
 ```
 
 
