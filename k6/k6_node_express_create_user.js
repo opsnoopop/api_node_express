@@ -29,7 +29,7 @@ export default function () {
     "username":"optest",
     "email":"auttakorn.w@clicknext.com"
   };
-  let res = http.post("http://container_node:3000/users", JSON.stringify(body), headers);
+  let res = http.post("http://container_node_express:3000/users", JSON.stringify(body), headers);
 
   // Validate response status
   check(res, { "status was 201": (r) => r.status == 201 });
@@ -39,6 +39,6 @@ export default function () {
 
 export function handleSummary(data) {
   return {
-    "/k6/result_node_create_user.html": htmlReport(data),
+    "/k6/result_node_express_create_user.html": htmlReport(data),
   };
 }

@@ -3,8 +3,8 @@ services:
     build:
       context: ./
       dockerfile: Dockerfile
-    image: node:24_alpine_custom
-    container_name: container_node
+    image: node:24_alpine_express
+    container_name: container_node_express
     ports:
       - "3000:3000"
     depends_on:
@@ -12,7 +12,7 @@ services:
     environment:
       - PORT=3000
     networks:
-      network_node:
+      network_node_express:
         ipv4_address: 172.16.0.11
 
   mysql:
@@ -28,12 +28,12 @@ services:
     volumes:
       - ./mysql:/var/lib/mysql
     networks:
-      network_node:
+      network_node_express:
         ipv4_address: 172.16.0.12
 
 networks:
-  network_node:
-    name: global_node
+  network_node_express:
+    name: global_node_express
     ipam:
       driver: default
       config:

@@ -1,6 +1,6 @@
-# Node.js API with MySQL
+# Node.js Express API with MySQL
 
-A simple Node.js API application using Express and MySQL, containerized with Docker.
+A simple Node.js Express API application using Express and MySQL, containerized with Docker.
 
 
 ## Technology Stack
@@ -24,12 +24,12 @@ A simple Node.js API application using Express and MySQL, containerized with Doc
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/opsnoopop/api_nodejs.git
+git clone https://github.com/opsnoopop/api_node_express.git
 ```
 
 ### 2. Navigate to Project Directory
 ```bash
-cd api_nodejs
+cd api_node_express
 ```
 
 ### 3. Start the Application
@@ -102,10 +102,10 @@ docker run \
 --name container_k6 \
 --rm \
 -it \
---network global_node \
+--network global_node_express \
 -v ./k6/:/k6 \
 grafana/k6:1.1.0 \
-run /k6/k6_node_health_check.js
+run /k6/k6_node_express_health_check.js
 ```
 
 ### grafana/k6 test Insert Create user
@@ -114,10 +114,10 @@ docker run \
 --name container_k6 \
 --rm \
 -it \
---network global_node \
+--network global_node_express \
 -v ./k6/:/k6 \
 grafana/k6:1.1.0 \
-run /k6/k6_node_create_user.js
+run /k6/k6_node_express_create_user.js
 
 ```
 
@@ -127,10 +127,10 @@ docker run \
 --name container_k6 \
 --rm \
 -it \
---network global_node \
+--network global_node_express \
 -v ./k6/:/k6 \
 grafana/k6:1.1.0 \
-run /k6/k6_node_get_user_by_id.js
+run /k6/k6_node_express_get_user_by_id.js
 ```
 
 ### check entrypoint grafana/k6

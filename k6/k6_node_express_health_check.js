@@ -24,8 +24,8 @@ const headers = {
 
 // Simulated user behavior
 export default function () {
-  // GET users/:id
-  let res = http.get("http://container_node:3000/users/1");
+  // GET
+  let res = http.get("http://container_node_express:3000");
 
   // Validate response status
   check(res, { "status was 200": (r) => r.status == 200 });
@@ -35,6 +35,6 @@ export default function () {
 
 export function handleSummary(data) {
   return {
-    "/k6/result_node_get_user_by_id.html": htmlReport(data),
+    "/k6/result_node_express_health_check.html": htmlReport(data),
   };
 }
