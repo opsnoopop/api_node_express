@@ -118,7 +118,6 @@ docker run \
 -v ./k6/:/k6 \
 grafana/k6:1.1.0 \
 run /k6/k6_node_express_create_user.js
-
 ```
 
 ### grafana/k6 test Select Get user by id
